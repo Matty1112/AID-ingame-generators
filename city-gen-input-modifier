@@ -1,0 +1,39 @@
+// Checkout the repo examples to get an idea of other ways you can use scripting 
+// https://github.com/AIDungeon/Scripting/blob/master/examples
+
+//Declares genning state upon opening scenario.
+//Credit of this block of code goes to Zynj
+if (!state.setup)
+{
+  state.setup = true // Ensure this is only set once and never wiped.
+  state.genning = false // Switch to true once set. This will only be re-assigned through script interactions
+}
+
+let city_prompt_1 = 'You arrive at the city of Conio; its aged but sturdy stone walls looming over your sides as you hear a chain heft the gate. The two guards posted by the toll gate make way for you as you stroll through the mainstreet, your eyes wandering. The folk here are as ordinary as they come; wearing their practical attire, their figures mesh into a sea of dark, dry colors. '
+let city_prompt_2 = 'You arrive at the city of Westead; lively cheers come from beyond the newly-built walls as you pass by. The toll gate is largely left unguarded. The folk wearing bright colored clothes and feather hats catch your attention; one of them bumps into you, and after a quick exchange of apologies, you continue on your way.'
+
+const modifier = (text) => {
+  let modifiedText = text
+  let city_prompt = {context: 'You'}
+  // The text passed in is either the user's input or players output to modify.
+  if(text.includes('/gencity')) {   
+    
+    const prompts = [city_prompt_1, city_prompt_2]
+    //Pushes string with city descriptions to frontmemory.
+    state.memory.frontMemory = prompts.join('\n')
+    
+    // You can modify the state variable to keep track of state throughout the adventure
+    state.genning = true
+    console.log('City gen commenced.')
+    
+    modifiedText = ''
+  }
+  
+    // You must return an object with the text property defined. 
+    return {text: modifiedText}
+}
+
+// Don't modify this part
+modifier(text)
+
+
