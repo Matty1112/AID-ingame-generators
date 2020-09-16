@@ -1,0 +1,10 @@
+const modifier = (text) => {
+  
+  // The text passed in is either the user's input or players output to modify.
+    if (state.genning) {delete state.memory.frontMemory; state.genning = false; console.log('City gen dispersed.')}
+    // You must return an object with the text property defined. 
+    return {text}
+}
+
+// Don't modify this part
+modifier(text)
